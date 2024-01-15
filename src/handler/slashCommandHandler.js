@@ -23,7 +23,7 @@ export function handleSlashCommand(interaction){
 }
 
 const sendLotteryWinnerMessage = async (interaction) => {
-    const winner = await pickMember();
+    const winner = await pickMember(1);
 
     interaction.reply(
         `🎉 축하합니다! 🎉
