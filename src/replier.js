@@ -1,5 +1,17 @@
 import { pickMember } from "./manager/memberManager.js";
 
+const fullTimeOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric",
+  timeZone: "Asia/Seoul",
+};
+
+
 export function handleIncomingMessage(msg) {
   
   if (msg.content === "RUTHERE") {

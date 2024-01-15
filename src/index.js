@@ -1,10 +1,10 @@
 import * as holidayUtil from "./holidayUtil.js";
 import * as dateUtil from "./dateUtil.js";
 import * as dateTimeReader from "./dateTimeReader.js";
-import * as notifier from "./notifier.js";
-import { client } from "./clientSetup.js";
-
+import { client } from "./setup/clientSetup.js";
+import { setSlashCommands } from "./setup/slashCommandSetup.js"
 import { handleIncomingMessage } from "./replier.js";
+import { handleSlashCommand } from "./handler/slashCommandHandler.js"
 
 
 import express from "express";
@@ -13,17 +13,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { Events } from "discord.js";
-
-const fullTimeOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-  second: "numeric",
-  timeZone: "Asia/Seoul",
-};
 
 const timeOptions = { timeZone: "Asia/Seoul", hour12: false };
 const weekdayFormatter = new Intl.DateTimeFormat("en-US", {
@@ -64,6 +53,8 @@ client.once(Events.ClientReady, (x) => {
   client.user.setActivity("동작");
 
   global.channel = client.channels.cache.get(process.env.CHANNEL_ID);
+
+  setSlashCommands();
   
   //TO-DO : 공휴일 추가 구현하기.
   //TO-DO : 화상회의 일자 변경 구현하기.
@@ -81,6 +72,12 @@ client.on(Events.MessageCreate, (msg) => {
   if (msg.author.bot) return;
   handleIncomingMessage(msg);
 });
+
+client.on(Events.InteractionCreate, (interaction) => {
+  if(!interaction.isChatInputCommand()) return;
+
+  handleSlashCommand(interaction);
+})
 
 client.on(Events.GuildMemberAdd, (x) => {
   channel.send(
