@@ -48,6 +48,5 @@ const shuffleMembers = (array) => {
 };
 
 const memberOrderToString = () => {
-    const stringifiedOrder = [...memberOrder, memberOrder[0]];
-    return stringifiedOrder.join(" > ");
+    return memberOrder.join(" > ");
 };

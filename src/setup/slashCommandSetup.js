@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { REST, Routes } from 'discord.js';
+import { ApplicationCommandOptionType, REST, Routes } from 'discord.js';
+
 
 const commands = [
 	{
@@ -10,6 +11,34 @@ const commands = [
 	{
 		name: 'lotto',
 		description: '행운의 주인공을 뽑아요!',
+	},
+	{
+		name: 'current-meeting',
+		description: '이번 주의 화상회의 일정을 확인해요.',
+	},
+	{
+		name: 'schedule-meeting',
+		description: '화상회의 일정을 조정합니다.',
+		options: [
+			{
+				name: '요일',
+				description: "'월', '화', '수', '목', '금', '토', '일'",
+				type: ApplicationCommandOptionType.String,
+				required: true
+			},
+			{
+				name: '시',
+				description: '0 ~ 23으로 입력해 주세요.',
+				type: ApplicationCommandOptionType.Number,
+				required: true
+			},
+			{
+				name: '분',
+				description: '0 ~ 59로 입력해 주세요.',
+				type: ApplicationCommandOptionType.Number,
+				required: true
+			}
+		]
 	},
 ];
 

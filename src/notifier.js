@@ -11,9 +11,9 @@ export function sendMeetingDayNotification(date, hours, minutes){
         `${date.toLocaleString(
           "ko-KR"
         )}
-        \n오늘은 코드 리뷰 날입니다.
+        \n오늘은 코드 리뷰를 실시합니다.
         \n${hours}시 ${minutes}분에 음성 채널에서 만나요!`
-      );
+    );
 }
 
 export async function sendMeetingImminentNotification(hours, minutes){
@@ -40,5 +40,5 @@ export function sendTestNotification(){
     checkChannel();
     channel.send(
        `테스트 메시지입니다.`
-      );
+    );
 }

@@ -3,7 +3,6 @@ import * as dateUtil from "./dateUtil.js";
 import * as dateTimeReader from "./dateTimeReader.js";
 import { client } from "./setup/clientSetup.js";
 import { setSlashCommands } from "./setup/slashCommandSetup.js"
-import { handleIncomingMessage } from "./replier.js";
 import { handleSlashCommand } from "./handler/slashCommandHandler.js"
 
 
@@ -37,17 +36,6 @@ global.holidays = [];
 holidayUtil.initHolidays(holidays);
 holidayUtil.addInitialHolidays(holidays);
 
-/* 미팅 관리 */
-const defaultMeeting = {
-  weekday: "금",
-  hour: 18,
-  minute: 0,
-  modified: false,
-};
-
-global.meetingInfo = { ...defaultMeeting };
-
-
 client.once(Events.ClientReady, (x) => {
   console.log(`${x.user.tag} is ready`);
   client.user.setActivity("동작");
@@ -66,12 +54,6 @@ client.once(Events.ClientReady, (x) => {
   });
 });
 
-/* 메시지에 답장하는 로직 */
-// replier로 옮기기.
-client.on(Events.MessageCreate, (msg) => {
-  if (msg.author.bot) return;
-  handleIncomingMessage(msg);
-});
 
 client.on(Events.InteractionCreate, (interaction) => {
   if(!interaction.isChatInputCommand()) return;
@@ -79,11 +61,22 @@ client.on(Events.InteractionCreate, (interaction) => {
   handleSlashCommand(interaction);
 })
 
+/* 메시지에 답장하는 로직 */
+/*
+client.on(Events.MessageCreate, (msg) => {
+  if (msg.author.bot) return;
+  handleIncomingMessage(msg);
+});
+*/
+
+
+/* 신규 멤버 추가 로직 
+/*
 client.on(Events.GuildMemberAdd, (x) => {
   channel.send(
     '새 멤버가 추가되었습니다! 관련 로직을 구현해주세요.'
   );
   console.log(x);
-})
-
+})ㄴ
+*/
 client.login(process.env.DISCORD_BOT_ID);
