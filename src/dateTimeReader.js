@@ -9,12 +9,7 @@ export async function read(currentDate) {
 
     [month, day, hours, minutes, weekday] = dateUtil.getDateValuesFrom(currentDate);
 
-    console.log(`${month}월 ${day}일 ${hours}시 ${minutes}분 ${weekday}요일`)
-
-    if(weekday === "일" && hours === 23 && minutes === 59){
-      if(meetingInfo.modified) meetingManager.setMeetingToDefault();
-      return;
-    }
+   // console.log(`${month}월 ${day}일 ${hours}시 ${minutes}분 ${weekday}요일`)
 
     if (weekday !== meetingInfo.weekday){
       return;
@@ -24,6 +19,7 @@ export async function read(currentDate) {
       notifier.sendMeetingDayNotification(currentDate, meetingInfo.meetingTime[0], meetingInfo.meetingTime[1]);
     } else if (isTimeToMeet()){
       notifier.sendMeetingImminentNotification(meetingInfo.readyTime[0], meetingInfo.readyTime[1]);
+      if(meetingInfo.modified) meetingManager.setMeetingToDefault();
     }
 }
 
