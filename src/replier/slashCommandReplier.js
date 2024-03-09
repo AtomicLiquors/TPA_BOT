@@ -48,7 +48,7 @@ export const sendCurrentMeetingInfoMessage = (interaction, weekday, hour, minute
 
 export const sendScheduleMeetingSuccessfulMessage = (interaction, weekday, hour, minute) => {
   interaction.reply(
-    `이번 주 코드 리뷰 일정이 변경되었습니다!\n변경된 일정은 일요일 아침에 초기화되니 주의해주세요.\n\n변경된 일정 : [ ${weekday}요일 ${hour}시 ${minute}분 ]
+    `이번 주 코드 리뷰 일정이 변경되었습니다!\n변경된 일정 : [ ${weekday}요일 ${hour}시 ${minute}분 ]\n\n일정은 변경된 코드 리뷰 시간 알림 이후 초기 세팅으로 돌아갑니다.
     `
   );
 }
